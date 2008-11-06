@@ -1,0 +1,13 @@
+Testsuite: WatchitControllerTests
+Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.107 sec
+------------- Standard Output ---------------
+--Output from testWhenGitInstalledShouldReturnGitVersion--
+--Output from testWhenGitNotInstalledShouldRenderError--
+------------- ---------------- ---------------
+------------- Standard Error -----------------
+--Output from testWhenGitInstalledShouldReturnGitVersion--
+--Output from testWhenGitNotInstalledShouldRenderError--
+------------- ---------------- ---------------
+
+Testcase: testWhenGitInstalledShouldReturnGitVersion took 0.007 sec
+Testcase: testWhenGitNotInstalledShouldRenderError took 0.04 sec

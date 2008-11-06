@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites>
+  <testsuite errors="0" failures="0" hostname="jestes-MacBook-Pro.local" id="0" name="ProjectControllerTests" package="" tests="1" time="0.19" timestamp="2008-11-05T04:26:21">
+      <properties />
+
+      <testcase classname="ProjectControllerTests" name="testWatchShouldTryToResolveProject" time="0.028" />
+
+      <system-out><![CDATA[--Output from testWatchShouldTryToResolveProject--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testWatchShouldTryToResolveProject--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="jestes-MacBook-Pro.local" id="1" name="WatchitControllerTests" package="" tests="2" time="0.107" timestamp="2008-11-06T05:06:09">
+      <properties />
+
+      <testcase classname="WatchitControllerTests" name="testWhenGitInstalledShouldReturnGitVersion" time="0.0070" />
+
+      <testcase classname="WatchitControllerTests" name="testWhenGitNotInstalledShouldRenderError" time="0.04" />
+
+      <system-out><![CDATA[--Output from testWhenGitInstalledShouldReturnGitVersion--
+--Output from testWhenGitNotInstalledShouldRenderError--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testWhenGitInstalledShouldReturnGitVersion--
+--Output from testWhenGitNotInstalledShouldRenderError--
+]]></system-err>
+
+  </testsuite>
+</testsuites>

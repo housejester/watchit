@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="jestes-MacBook-Pro.local" name="WatchitControllerTests" tests="2" time="0.107" timestamp="2008-11-06T05:06:09">
+  <properties />
+  <testcase classname="WatchitControllerTests" name="testWhenGitInstalledShouldReturnGitVersion" time="0.0070" />
+  <testcase classname="WatchitControllerTests" name="testWhenGitNotInstalledShouldRenderError" time="0.04" />
+  <system-out><![CDATA[--Output from testWhenGitInstalledShouldReturnGitVersion--
+--Output from testWhenGitNotInstalledShouldRenderError--
+]]></system-out>
+  <system-err><![CDATA[--Output from testWhenGitInstalledShouldReturnGitVersion--
+--Output from testWhenGitNotInstalledShouldRenderError--
+]]></system-err>
+</testsuite>

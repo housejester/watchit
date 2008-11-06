@@ -1,0 +1,10 @@
+Testsuite: ProjectControllerTests
+Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.19 sec
+------------- Standard Output ---------------
+--Output from testWatchShouldTryToResolveProject--
+------------- ---------------- ---------------
+------------- Standard Error -----------------
+--Output from testWatchShouldTryToResolveProject--
+------------- ---------------- ---------------
+
+Testcase: testWatchShouldTryToResolveProject took 0.028 sec

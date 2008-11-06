@@ -1,0 +1,2 @@
+--Output from testWhenGitInstalledShouldReturnGitVersion--
+--Output from testWhenGitNotInstalledShouldRenderError--
