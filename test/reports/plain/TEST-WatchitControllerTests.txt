@@ -1,13 +1,13 @@
 Testsuite: WatchitControllerTests
-Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.107 sec
+Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.134 sec
 ------------- Standard Output ---------------
---Output from testWhenGitInstalledShouldReturnGitVersion--
---Output from testWhenGitNotInstalledShouldRenderError--
+--Output from testWhenGitInstalledIndexShouldHavGitVersionInModel--
+--Output from testWhenGitNotInstalledIndexShouldRenderError--
 ------------- ---------------- ---------------
 ------------- Standard Error -----------------
---Output from testWhenGitInstalledShouldReturnGitVersion--
---Output from testWhenGitNotInstalledShouldRenderError--
+--Output from testWhenGitInstalledIndexShouldHavGitVersionInModel--
+--Output from testWhenGitNotInstalledIndexShouldRenderError--
 ------------- ---------------- ---------------
 
-Testcase: testWhenGitInstalledShouldReturnGitVersion took 0.007 sec
-Testcase: testWhenGitNotInstalledShouldRenderError took 0.04 sec
+Testcase: testWhenGitInstalledIndexShouldHavGitVersionInModel took 0.017 sec
+Testcase: testWhenGitNotInstalledIndexShouldRenderError took 0.055 sec

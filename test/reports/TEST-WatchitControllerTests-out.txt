@@ -1,2 +1,2 @@
---Output from testWhenGitInstalledShouldReturnGitVersion--
---Output from testWhenGitNotInstalledShouldRenderError--
+--Output from testWhenGitInstalledIndexShouldHavGitVersionInModel--
+--Output from testWhenGitNotInstalledIndexShouldRenderError--
