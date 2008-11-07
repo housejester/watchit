@@ -1,30 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites>
-  <testsuite errors="0" failures="0" hostname="jestes-MacBook-Pro.local" id="0" name="ProjectControllerTests" package="" tests="1" time="0.19" timestamp="2008-11-05T04:26:21">
+  <testsuite errors="0" failures="0" hostname="jestes-MacBook-Pro.local" id="0" name="GitServiceTests" package="" tests="1" time="0.109" timestamp="2008-11-07T04:17:56">
       <properties />
 
-      <testcase classname="ProjectControllerTests" name="testWatchShouldTryToResolveProject" time="0.028" />
+      <testcase classname="GitServiceTests" name="testSomething" time="0.0" />
 
-      <system-out><![CDATA[--Output from testWatchShouldTryToResolveProject--
+      <system-out><![CDATA[--Output from testSomething--
 ]]></system-out>
 
-      <system-err><![CDATA[--Output from testWatchShouldTryToResolveProject--
+      <system-err><![CDATA[--Output from testSomething--
 ]]></system-err>
 
   </testsuite>
-  <testsuite errors="0" failures="0" hostname="jestes-MacBook-Pro.local" id="1" name="WatchitControllerTests" package="" tests="2" time="0.134" timestamp="2008-11-06T05:11:11">
+  <testsuite errors="0" failures="0" hostname="jestes-MacBook-Pro.local" id="1" name="WatchitControllerTests" package="" tests="3" time="0.106" timestamp="2008-11-07T04:17:52">
       <properties />
 
-      <testcase classname="WatchitControllerTests" name="testWhenGitInstalledIndexShouldHavGitVersionInModel" time="0.017" />
+      <testcase classname="WatchitControllerTests" name="testWhenGitInstalledIndexShouldRenderIndexView" time="0.028" />
 
-      <testcase classname="WatchitControllerTests" name="testWhenGitNotInstalledIndexShouldRenderError" time="0.055" />
+      <testcase classname="WatchitControllerTests" name="testWhenGitNotInstalledIndexShouldRenderError" time="0.011" />
 
-      <system-out><![CDATA[--Output from testWhenGitInstalledIndexShouldHavGitVersionInModel--
+      <testcase classname="WatchitControllerTests" name="testWatchActionShouldAttemptToCloneWhenGivenGitUrl" time="0.013" />
+
+      <system-out><![CDATA[--Output from testWhenGitInstalledIndexShouldRenderIndexView--
 --Output from testWhenGitNotInstalledIndexShouldRenderError--
+--Output from testWatchActionShouldAttemptToCloneWhenGivenGitUrl--
 ]]></system-out>
 
-      <system-err><![CDATA[--Output from testWhenGitInstalledIndexShouldHavGitVersionInModel--
+      <system-err><![CDATA[--Output from testWhenGitInstalledIndexShouldRenderIndexView--
 --Output from testWhenGitNotInstalledIndexShouldRenderError--
+--Output from testWatchActionShouldAttemptToCloneWhenGivenGitUrl--
 ]]></system-err>
 
   </testsuite>

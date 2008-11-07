@@ -1,20 +1,43 @@
 class WatchitControllerTests extends GroovyTestCase {
+    def git
+    def renderArgs
+    def controller
 
-    void testWhenGitInstalledIndexShouldHavGitVersionInModel() {
-	def fakeGitVersionOutput = 'fake git version'
+    void setUp() {
+	git = [ 
+		exists : { -> true }
+	]
+	WatchitController.metaClass.params = [ name:"nameParamValue"]
+	WatchitController.metaClass.render = { args -> renderArgs = args }
+	controller = new WatchitController()
+	controller.gitService = git
+    }
 
-	String.metaClass.execute = { -> [ text : fakeGitVersionOutput ] } 
-	def model = (new WatchitController()).index()
-	assertEquals(fakeGitVersionOutput, model.gitVersion)
+    void testWhenGitInstalledIndexShouldRenderIndexView() {
+	String.metaClass.execute = { -> [ text : "fake version"] } 
+	
+	controller.index()
+	assertEquals( "index", renderArgs.view )
     }
     
     void testWhenGitNotInstalledIndexShouldRenderError(){
-	String.metaClass.execute = { -> throw new IOException("git: not found") }
-	def argsPassedToRender =  null
+	controller.gitService = [
+                exists : { -> false }
+        ]
 
-	WatchitController.metaClass.render = { args -> argsPassedToRender = args }
+	controller.index()
+	assertEquals( "gitNotFound", renderArgs.view ) 
+    }
 
-	(new WatchitController()).index()
-	assertEquals( "gitNotFound", argsPassedToRender.view ) 
+    void testWatchActionShouldAttemptToCloneWhenGivenGitUrl(){
+	def cloneUrl 
+	def cloneDir	
+	controller.gitService = [ 
+		clone : { url,dir -> cloneUrl = url; cloneDir = dir; [ text : "cloneOut" ] }
+	]
+	
+	controller.watch()
+	assertEquals( "nameParamValue", cloneUrl )
+	assertNotNull( cloneDir )
     }
 }

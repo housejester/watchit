@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="jestes-MacBook-Pro.local" name="ProjectControllerTests" tests="1" time="0.19" timestamp="2008-11-05T04:26:21">
-  <properties />
-  <testcase classname="ProjectControllerTests" name="testWatchShouldTryToResolveProject" time="0.028" />
-  <system-out><![CDATA[--Output from testWatchShouldTryToResolveProject--
-]]></system-out>
-  <system-err><![CDATA[--Output from testWatchShouldTryToResolveProject--
-]]></system-err>
-</testsuite>

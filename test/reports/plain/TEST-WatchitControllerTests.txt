@@ -1,13 +1,16 @@
 Testsuite: WatchitControllerTests
-Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.134 sec
+Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.106 sec
 ------------- Standard Output ---------------
---Output from testWhenGitInstalledIndexShouldHavGitVersionInModel--
+--Output from testWhenGitInstalledIndexShouldRenderIndexView--
 --Output from testWhenGitNotInstalledIndexShouldRenderError--
+--Output from testWatchActionShouldAttemptToCloneWhenGivenGitUrl--
 ------------- ---------------- ---------------
 ------------- Standard Error -----------------
---Output from testWhenGitInstalledIndexShouldHavGitVersionInModel--
+--Output from testWhenGitInstalledIndexShouldRenderIndexView--
 --Output from testWhenGitNotInstalledIndexShouldRenderError--
+--Output from testWatchActionShouldAttemptToCloneWhenGivenGitUrl--
 ------------- ---------------- ---------------
 
-Testcase: testWhenGitInstalledIndexShouldHavGitVersionInModel took 0.017 sec
-Testcase: testWhenGitNotInstalledIndexShouldRenderError took 0.055 sec
+Testcase: testWhenGitInstalledIndexShouldRenderIndexView took 0.028 sec
+Testcase: testWhenGitNotInstalledIndexShouldRenderError took 0.011 sec
+Testcase: testWatchActionShouldAttemptToCloneWhenGivenGitUrl took 0.013 sec

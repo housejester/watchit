@@ -1,3 +1,4 @@
---Output from testWhenGitInstalledIndexShouldHavGitVersionInModel--
+--Output from testWhenGitInstalledIndexShouldRenderIndexView--
 --Output from testWhenGitNotInstalledIndexShouldRenderError--
+--Output from testWatchActionShouldAttemptToCloneWhenGivenGitUrl--
 
