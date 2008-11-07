@@ -8,9 +8,14 @@ class WatchitController {
 	}
 	
 	def watch = {
+		if( params.name.indexOf("git://") != 0 ){
+			render( view : "projectNotFound" )
+			return
+		}
 		def f = File.createTempFile("watchit-project-", ".git")
 		f.delete()
 		def cloneOut = gitService.clone( params.name, f.absolutePath )
-		return [cloneOutput: cloneOut]
+		
+		render( view:"watch" )
 	}
 }
