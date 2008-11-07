@@ -1,3 +1,5 @@
+import org.watchit.git.GitCloneException
+
 class GitService {
     boolean transactional = true
 
@@ -11,6 +13,12 @@ class GitService {
     }
 
     def clone(url, dir){
-	"git clone ${url} ${dir}".execute().text
+	def proc = "git clone ${url} ${dir}".execute()
+	proc.waitFor()
+	if( proc.exitValue() != 0){
+		throw new GitCloneException( proc.err.text )
+	}
+	def out = proc.text
+	System.out.println("git clone output: " + proc.exitValue() + " : "+out);
     }
 }

@@ -1,4 +1,5 @@
 import java.io.File
+import org.watchit.git.GitCloneException
 
 class WatchitController {
 	def gitService
@@ -14,8 +15,11 @@ class WatchitController {
 		}
 		def f = File.createTempFile("watchit-project-", ".git")
 		f.delete()
-		def cloneOut = gitService.clone( params.name, f.absolutePath )
-		
-		render( view:"watch" )
+		try{	
+			def cloneOut = gitService.clone( params.name, f.absolutePath )
+			render( view:"watch" )
+		}catch( GitCloneException ex ){
+			render( view:"projectNotFound", model:[ error : ex.getMessage() ] )
+		}
 	}
 }

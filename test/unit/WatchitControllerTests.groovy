@@ -1,3 +1,5 @@
+import org.watchit.git.GitCloneException
+
 class WatchitControllerTests extends GroovyTestCase {
     def git
     def renderArgs
@@ -51,4 +53,16 @@ class WatchitControllerTests extends GroovyTestCase {
 	assertNull( cloneUrl )
 	assertEquals( "projectNotFound", renderArgs.view )       
     }
+
+    void testWatchActionShouldRenderErrorPageIfCloneFails(){
+	params.name = "git://foo"
+	controller.gitService.clone = {url,dir->
+		throw new GitCloneException("foo not found")
+	}
+
+	controller.watch()
+	assertEquals( "projectNotFound", renderArgs.view )       
+	assertEquals( "foo not found", renderArgs.model.error)       
+    }
+   
 }
