@@ -1,20 +1,25 @@
 import org.watchit.git.*
 
 class GitTests extends GroovyTestCase {
-    def cloneProcReturn
+	def git
+	def cloneProcReturn 
+	def cloneExecString
+	def nextFileName
 
-    void testShouldThrowExWhenCloneHasError(){
-		def git = new Git()
-
+	void setUp(){
+		git = new Git()
+		nextFileName = "/tmp/foo"
 		cloneProcReturn = [ 
 			exitValue : { -> 128 }, 
+			text : "out",
 			err : [ text : "--clone error text--" ],
-			waitFor : {} 
+			waitFor : {}
+		]
+		String.metaClass.execute = { -> cloneExecString = delegate; return cloneProcReturn; }
+		git.tempFileNameSource = [ nextFileName : { -> nextFileName }]
+	}
 
-		] 
-	
-		String.metaClass.execute = { -> cloneProcReturn }
-
+    void testShouldThrowExWhenCloneHasError(){
 		try{
 			git.clone("git://foo", "/tmp/foo")
 			fail("should throw ex when proc has error")
@@ -24,9 +29,16 @@ class GitTests extends GroovyTestCase {
     }
 	void testShouldThrowExWhenCloneCalledWithNonGitUrl(){
 		try{
-			(new Git()).clone("foo", "/tmp/foo")
+			git.clone("foo", "/tmp/foo")
 			fail("should throw ex when clone called without git:// url")
 		}catch(InvalidGitUrlException ex){
 		}
+	}
+	
+	void testShouldUseTempFileServiceForTargetDirectory(){
+		cloneProcReturn.exitValue = { -> 0 }
+		nextFileName = "/tmp/fileNameForTesting"
+		git.clone("git://foo")
+		assertEquals("git clone git://foo ${nextFileName}", cloneExecString)
 	}
 }

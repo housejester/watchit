@@ -9,10 +9,8 @@ class WatchitController {
 	}
 	
 	def watch = {
-		def f = File.createTempFile("watchit-project-", ".git")
-		f.delete()
 		try{	
-			def cloneOut = git.clone( params.name, f.absolutePath )
+			def cloneOut = git.clone( params.name )
 			render( view:"watch" )
 		}catch( GitCloneException ex ){
 			render( view:"projectNotFound", model:[ error : ex.getMessage() ] )
