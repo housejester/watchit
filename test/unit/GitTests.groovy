@@ -16,10 +16,17 @@ class GitTests extends GroovyTestCase {
 		String.metaClass.execute = { -> cloneProcReturn }
 
 		try{
-			git.clone("git://foo", "/tmp")
+			git.clone("git://foo", "/tmp/foo")
 			fail("should throw ex when proc has error")
 		}catch( GitCloneException ex ){
 			assertTrue( ex.getMessage().contains(cloneProcReturn.err.text))
 		}
     }
+	void testShouldThrowExWhenCloneCalledWithNonGitUrl(){
+		try{
+			(new Git()).clone("foo", "/tmp/foo")
+			fail("should throw ex when clone called without git:// url")
+		}catch(InvalidGitUrlException ex){
+		}
+	}
 }

@@ -4,15 +4,11 @@ import org.watchit.git.*
 class WatchitController {
 	def git
 
-    	def index = { 
+    def index = { 
 		git.exists() ? render( view : "index" ) : render( view : "gitNotFound" ) 
 	}
 	
 	def watch = {
-		if( params.name.indexOf("git://") != 0 ){
-			render( view : "projectNotFound" )
-			return
-		}
 		def f = File.createTempFile("watchit-project-", ".git")
 		f.delete()
 		try{	

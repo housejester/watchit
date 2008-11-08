@@ -11,6 +11,9 @@ class Git {
     }
 
     def clone(url, dir){
+		if( url.indexOf("git://") != 0 ){
+			throw new InvalidGitUrlException(url);
+		}
 		def proc = "git clone ${url} ${dir}".execute()
 		proc.waitFor()
 		if( proc.exitValue() != 0){
