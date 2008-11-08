@@ -1,4 +1,4 @@
-import org.watchit.git.GitCloneException
+import org.watchit.git.*
 
 class WatchitControllerTests extends GroovyTestCase {
     def git
@@ -20,18 +20,16 @@ class WatchitControllerTests extends GroovyTestCase {
 	WatchitController.metaClass.params = params 
 	WatchitController.metaClass.render = { args -> renderArgs = args }
 	controller = new WatchitController()
-	controller.gitService = git
+	controller.git = git
     }
 
     void testWhenGitInstalledIndexShouldRenderIndexView() {
-	String.metaClass.execute = { -> [ text : "fake version"] } 
-	
 	controller.index()
 	assertEquals( "index", renderArgs.view )
     }
     
     void testWhenGitNotInstalledIndexShouldRenderError(){
-	controller.gitService = [
+	controller.git = [
                 exists : { -> false }
         ]
 
@@ -56,7 +54,7 @@ class WatchitControllerTests extends GroovyTestCase {
 
     void testWatchActionShouldRenderErrorPageIfCloneFails(){
 	params.name = "git://foo"
-	controller.gitService.clone = {url,dir->
+	controller.git.clone = {url,dir->
 		throw new GitCloneException("foo not found")
 	}
 
