@@ -2,6 +2,7 @@ package org.watchit.git
 
 class Git {
 	def tempFileNameSource
+	
     def exists() {
 		try{
 			"git --version".execute()
@@ -14,6 +15,7 @@ class Git {
 	def clone(url){
 		return clone(url, tempFileNameSource.nextFileName())
 	}
+	
     def clone(url, dir){
 		if( url.indexOf("git://") != 0 ){
 			throw new InvalidGitUrlException(url);

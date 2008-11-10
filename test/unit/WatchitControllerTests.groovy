@@ -46,7 +46,8 @@ class WatchitControllerTests extends GroovyTestCase {
 			throw new GitCloneException("foo not found")
 		}
 		controller.watch()
-		assertEquals( "projectNotFound", renderArgs.view )       
+		assertEquals( "index", renderArgs.view )       
+		assertEquals( "foo not found", renderArgs.model.error )
     }
 
     void testWatchActionShouldRenderErrorPageIfCloneFails(){
@@ -54,7 +55,7 @@ class WatchitControllerTests extends GroovyTestCase {
 			throw new InvalidGitUrlException()
 		}
 		controller.watch()
-		assertEquals( "projectNotFound", renderArgs.view )       
+		assertEquals( "index", renderArgs.view )       
 		assertEquals( (new InvalidGitUrlException()).message, renderArgs.model.error)       
     }
    

@@ -13,7 +13,7 @@ class WatchitController {
 			def cloneOut = git.clone( params.name )
 			render( view:"watch" )
 		}catch( GitCloneException ex ){
-			render( view:"projectNotFound", model:[ error : ex.getMessage() ] )
+			render( view:"index", model:[ error : ex.getMessage() ] )
 		}
 	}
 }
