@@ -15,7 +15,7 @@ class WatchitControllerTests extends GroovyTestCase {
 		git = [ 
 			clone : { url -> cloneUrl = url; [ text : "cloneOut" ] }
 		]
-		params = [ name:"git://fakegiturl"]    
+		params = [ repoUrl:"git://fakegiturl"]    
 		renderArgs = [ : ]
         cloneUrl = null
 		WatchitController.metaClass.params = params 
@@ -32,7 +32,7 @@ class WatchitControllerTests extends GroovyTestCase {
 
     void testWatchActionShouldAttemptToCloneWhenGivenGitUrl(){
 		controller.watch()
-		assertEquals( params.name, cloneUrl )
+		assertEquals( params.repoUrl, cloneUrl )
     }
 
     void testWatchActionShouldRenderErrorPageIfNotGitUrl(){

@@ -8,15 +8,15 @@ class WatchitController {
 	}
 	
 	def watch = {
-		def project = Project.findByRepoUrl(params.name)
+		def project = Project.findByRepoUrl(params.repoUrl)
 		if( project ){
 			redirect( uri:"/project/${project.id}")
 			return
 		}
 		try{	
-			def cloneOut = git.clone( params.name )
+			def cloneOut = git.clone( params.repoUrl )
 			project = new Project()
-			project.repoUrl = params.name
+			project.repoUrl = params.repoUrl
 			project.save()
 			redirect( uri:"/project/${project.id}")
 		}catch( GitCloneException ex ){
