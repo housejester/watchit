@@ -5,11 +5,12 @@ class UrlMappings {
 			action = "index"
 		}
 		
-		"/$controller/$action?/$id?"{
-			constraints {
-			 	// apply constraints here
-	      		}
+		"/$controller/$id"{
+			action = [POST:"update", GET:"show", PUT:"save", DELETE:"delete"]
 		}
+		"/$controller/$action?/$id?"{
+		}
+		
 	  
 		"500"(view:'/error')
 

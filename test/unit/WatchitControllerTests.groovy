@@ -6,6 +6,10 @@ class WatchitControllerTests extends GroovyTestCase {
     def controller
     def cloneUrl 
     def params 
+	def repoUrlForFind
+	def projectToReturn
+	def redirectArgs
+	def idForNewProject
 
     void setUp() {
 		git = [ 
@@ -17,8 +21,14 @@ class WatchitControllerTests extends GroovyTestCase {
         cloneUrl = null
 		WatchitController.metaClass.params = params 
 		WatchitController.metaClass.render = { args -> renderArgs = args }
+		WatchitController.metaClass.redirect = { args -> redirectArgs = args }
 		controller = new WatchitController()
 		controller.git = git
+		
+		projectToReturn = null
+		Project.metaClass.static.findByRepoUrl = { url -> repoUrlForFind = url; return projectToReturn;}
+		idForNewProject = 101
+		Project.metaClass.save = {-> delegate.id=idForNewProject}
     }
 
     void testWhenGitInstalledIndexShouldRenderIndexView() {
@@ -38,7 +48,6 @@ class WatchitControllerTests extends GroovyTestCase {
     void testWatchActionShouldAttemptToCloneWhenGivenGitUrl(){
 		controller.watch()
 		assertEquals( params.name, cloneUrl )
-		assertEquals( "watch", renderArgs.view )
     }
 
     void testWatchActionShouldRenderErrorPageIfNotGitUrl(){
@@ -58,5 +67,21 @@ class WatchitControllerTests extends GroovyTestCase {
 		assertEquals( "index", renderArgs.view )       
 		assertEquals( (new InvalidGitUrlException()).message, renderArgs.model.error)       
     }
-   
+
+	void testWatchActionShouldRedirectToProjectPageWhenProjectAlreadyBeingWatched(){
+		Project p = new Project()
+		p.id = 202
+		p.repoUrl = 'git://fakegiturl'
+		projectToReturn = p
+		
+		controller.watch()
+		assertEquals( "/project/202", redirectArgs.uri )
+		assertNull(cloneUrl)
+	}
+
+    void testWatchActionShouldRedirectToNewProject(){
+		controller.watch()
+		assertEquals( "/project/101", redirectArgs.uri )
+    }
+
 }
