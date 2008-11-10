@@ -13,7 +13,6 @@ class WatchitControllerTests extends GroovyTestCase {
 
     void setUp() {
 		git = [ 
-			exists : { -> true },
 			clone : { url -> cloneUrl = url; [ text : "cloneOut" ] }
 		]
 		params = [ name:"git://fakegiturl"]    
@@ -29,20 +28,6 @@ class WatchitControllerTests extends GroovyTestCase {
 		Project.metaClass.static.findByRepoUrl = { url -> repoUrlForFind = url; return projectToReturn;}
 		idForNewProject = 101
 		Project.metaClass.save = {-> delegate.id=idForNewProject}
-    }
-
-    void testWhenGitInstalledIndexShouldRenderIndexView() {
-		controller.index()
-		assertEquals( "index", renderArgs.view )
-    }
-    
-    void testWhenGitNotInstalledIndexShouldRenderError(){
-		controller.git = [
-                exists : { -> false }
-        ]
-
-		controller.index()
-		assertEquals( "gitNotFound", renderArgs.view ) 
     }
 
     void testWatchActionShouldAttemptToCloneWhenGivenGitUrl(){

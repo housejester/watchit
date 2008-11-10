@@ -5,7 +5,6 @@ class WatchitController {
 	def git
 
     def index = { 
-		git.exists() ? render( view : "index" ) : render( view : "gitNotFound" ) 
 	}
 	
 	def watch = {
