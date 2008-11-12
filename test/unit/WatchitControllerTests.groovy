@@ -1,72 +1,41 @@
 import org.watchit.git.*
 
 class WatchitControllerTests extends GroovyTestCase {
-    def git
-    def renderArgs
     def controller
-    def cloneUrl 
     def params 
-	def repoUrlForFind
-	def projectToReturn
+    def renderArgs
 	def redirectArgs
-	def idForNewProject
 
     void setUp() {
-		git = [ 
-			clone : { url -> cloneUrl = url; [ text : "cloneOut" ] }
-		]
 		params = [ repoUrl:"git://fakegiturl"]    
 		renderArgs = [ : ]
-        cloneUrl = null
+
 		WatchitController.metaClass.params = params 
 		WatchitController.metaClass.render = { args -> renderArgs = args }
 		WatchitController.metaClass.redirect = { args -> redirectArgs = args }
+
 		controller = new WatchitController()
-		controller.git = git
-		
-		projectToReturn = null
-		Project.metaClass.static.findByRepoUrl = { url -> repoUrlForFind = url; return projectToReturn;}
-		idForNewProject = 101
-		Project.metaClass.save = {-> delegate.id=idForNewProject}
+		controller.projectService = new ProjectService()
     }
 
-    void testWatchActionShouldAttemptToCloneWhenGivenGitUrl(){
+    void testWatchActionShouldCallToProjectService(){
+		def watchRepoUrl = null
+		params.repoUrl = "git://foo"
+		ProjectService.metaClass.watch = { repoUrl -> watchRepoUrl = repoUrl; new Project(id:202) }
 		controller.watch()
-		assertEquals( params.repoUrl, cloneUrl )
+		assertEquals( params.repoUrl, watchRepoUrl )
     }
 
-    void testWatchActionShouldRenderErrorPageIfNotGitUrl(){
-		controller.git.clone = {url->
-			throw new GitCloneException("foo not found")
-		}
+    void testWatchActionShouldRenderErrorPageOnError(){
+		ProjectService.metaClass.watch = { repoUrl -> throw new Exception("foo not found") }
 		controller.watch()
 		assertEquals( "index", renderArgs.view )       
 		assertEquals( "foo not found", renderArgs.model.error )
     }
 
-    void testWatchActionShouldRenderErrorPageIfCloneFails(){
-		controller.git.clone = {url->
-			throw new InvalidGitUrlException()
-		}
-		controller.watch()
-		assertEquals( "index", renderArgs.view )       
-		assertEquals( (new InvalidGitUrlException()).message, renderArgs.model.error)       
-    }
-
-	void testWatchActionShouldRedirectToProjectPageWhenProjectAlreadyBeingWatched(){
-		Project p = new Project()
-		p.id = 202
-		p.repoUrl = 'git://fakegiturl'
-		projectToReturn = p
-		
+	void testWatchActionShouldRedirectToProjectDetailPage(){
+		ProjectService.metaClass.watch = { repoUrl -> new Project(id:202) }
 		controller.watch()
 		assertEquals( "/project/202", redirectArgs.uri )
-		assertNull(cloneUrl)
 	}
-
-    void testWatchActionShouldRedirectToNewProject(){
-		controller.watch()
-		assertEquals( "/project/101", redirectArgs.uri )
-    }
-
 }

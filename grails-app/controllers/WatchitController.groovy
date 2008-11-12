@@ -1,17 +1,17 @@
-import java.io.File
 import org.watchit.git.*
 
 class WatchitController {
-	def git
+	def projectService
 
     def index = { 
 	}
 	
 	def watch = {
 		try{	
-			def project = Project.watch(params.repoUrl)
+			def project = projectService.watch(params.repoUrl)
 			redirect( uri:"/project/${project.id}")
-		}catch(GitCloneException ex){
+		}catch(ex){
+			//should this handle specific exceptions only?
 			render( view:"index", model:[ error : ex.getMessage() ] )
 		}
 	}
