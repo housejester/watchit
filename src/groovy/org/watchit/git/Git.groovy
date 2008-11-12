@@ -13,7 +13,9 @@ class Git {
     }
 
 	def clone(url){
-		return clone(url, tempFileNameSource.nextFileName())
+		def fileName = tempFileNameSource.nextFileName()
+		clone(url, fileName)
+		return fileName
 	}
 	
     def clone(url, dir){
