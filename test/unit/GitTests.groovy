@@ -38,7 +38,16 @@ class GitTests extends GroovyTestCase {
 	void testShouldUseTempFileServiceForTargetDirectory(){
 		cloneProcReturn.exitValue = { -> 0 }
 		nextFileName = "/tmp/fileNameForTesting"
-		git.clone("git://foo")
+		def fname = git.clone("git://foo")
 		assertEquals("git clone git://foo ${nextFileName}", cloneExecString)
+		assertEquals(nextFileName, fname)
+	}
+
+	void testCheckoutShouldCreateGitProject(){
+		cloneProcReturn.exitValue = { -> 0 }
+		nextFileName = "/tmp/fileNameForTesting"
+		def project = git.checkout("git://foo")
+		assertEquals("git://foo", project.repoUrl)
+		assertEquals(nextFileName, project.repoDir)
 	}
 }

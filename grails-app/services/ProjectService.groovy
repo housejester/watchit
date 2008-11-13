@@ -8,8 +8,7 @@ class ProjectService {
 	}
 
 	def createProject(repoUrl){
-		def repoDir = git.clone( repoUrl ) //REALLY feel this doesn't belong here.
-		def project = new Project(repoUrl:repoUrl,repoDir:repoDir)
+		def project = git.checkout( repoUrl ) 
 		project.save()
 		return project
 	}

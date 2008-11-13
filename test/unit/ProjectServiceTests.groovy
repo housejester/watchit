@@ -10,7 +10,7 @@ class ProjectServiceTests extends GroovyTestCase {
 
     void setUp() {
 		git = [ 
-			clone : { url -> cloneUrl = url; [ text : "cloneOut" ] }
+			checkout : { url -> cloneUrl = url; new GitProject(id: idForNewProject) }
 		]
         cloneUrl = null
 		
@@ -20,7 +20,7 @@ class ProjectServiceTests extends GroovyTestCase {
 		projectToReturn = null
 		Project.metaClass.static.findByRepoUrl = { url -> repoUrlForFind = url; return projectToReturn;}
 		idForNewProject = 101
-		Project.metaClass.save = {-> delegate.id=idForNewProject}
+		GitProject.metaClass.save = {-> delegate.id=idForNewProject}
     }
 
     void testWatchShouldAttemptToCloneWhenGivenGitUrl(){
@@ -31,7 +31,7 @@ class ProjectServiceTests extends GroovyTestCase {
     }
 
     void testShouldPassGitCloneExceptionsUpToCaller(){
-		git.clone = {url->
+		git.checkout = {url->
 			throw new GitCloneException("some clone exception string")
 		}
 		try{
@@ -43,7 +43,7 @@ class ProjectServiceTests extends GroovyTestCase {
     }
 
     void testShouldPassInvalidGitUrlExceptionsUpToCaller(){
-		git.clone = {url->
+		git.checkout = {url->
 			throw new InvalidGitUrlException()
 		}
 		try{

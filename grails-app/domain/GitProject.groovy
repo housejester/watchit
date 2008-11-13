@@ -1,0 +1,2 @@
+class GitProject extends Project {
+}

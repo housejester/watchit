@@ -11,6 +11,11 @@ class Git {
 		}
 		return true
     }
+	
+	def checkout(repoUrl){
+		def fileName = clone(repoUrl)
+		return new GitProject( repoUrl:repoUrl, repoDir:fileName)
+	}
 
 	def clone(url){
 		def fileName = tempFileNameSource.nextFileName()
@@ -27,7 +32,5 @@ class Git {
 		if( proc.exitValue() != 0){
 			throw new GitCloneException( proc.err.text )
 		}
-		def out = proc.text
-		System.out.println("git clone output: " + proc.exitValue() + " : "+out);
     }
 }
