@@ -52,10 +52,12 @@ class Git {
 		if(!sinceCommitId){
 			sinceCommitId = ""
 		}
-		def proc = "git --git-dir=${repoDir}/.git/ log --pretty=format:%H ${sinceCommitId}".execute()
-		proc.waitFor()
+		def logCommand = "git --git-dir=${repoDir}/.git/ log --pretty=format:%H:%s ${sinceCommitId}"
 		def logs = []
-		proc.text.split("\n").each{ logs.add(new CommitLog(logId:it)) }
+		logCommand.execute().text.split("\n").reverse().each{ 
+			def parts = it.split(":")
+			logs.add(new CommitLog(logId:parts[0], subject:parts[1])) 
+		}
 		return logs
 	}
 	

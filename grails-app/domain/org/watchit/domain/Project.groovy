@@ -2,12 +2,13 @@ package org.watchit.domain
 
 import org.watchit.git.Git
 
-public class Project {
+class Project {
 	static hasMany = [logs:CommitLog]
 
 	String repoUrl
 	String repoDir
 	String lastLogId
+	List logs
 
 	public boolean updateLogs(){
 		def scm = getScm(repoDir)

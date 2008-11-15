@@ -4,9 +4,9 @@
 		pre {
 			border: 1px dashed black;
 			background-color: #DDD;
-			padding:5;
-			margin:5;
-			width:400;
+			padding:5px;
+			margin:5px;
+			width:400px;
 			white-space:-pre-wrap;
 			white-space:pre-wrap;
 			overflow:auto;
@@ -14,8 +14,11 @@
 		.error {
 			border: 1px solid red;
 			background-color:#FFFFCC;
-			padding:8;
-			margin:8;
+			padding:8px;
+			margin:8px;
+		}
+		#repoUrl{
+			width:350px;
 		}
 	</style>
 </head>
@@ -27,7 +30,7 @@
 		</div>
 	</g:if>
 	<g:form name="watchitForm" url="[controller:'watchit',action:'watch']">
-		<label>Project Git URL: <input type="text" name="repoUrl" /></label>
+		<label>Project Git URL: <input id="repoUrl" type="text" name="repoUrl" /></label>
 		<input type="submit" value="Watch It!" />
 	</g:form>
 </body>
