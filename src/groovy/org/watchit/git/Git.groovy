@@ -48,11 +48,9 @@ class Git {
 		proc.waitFor()
 	}
 	
-	def log(sinceCommitId){
+	def log(sinceCommitId=""){
 		if(sinceCommitId){
 			sinceCommitId = "${sinceCommitId}.."
-		}else{
-			sinceCommitId = ""
 		}
 		def logCommand = "git --git-dir=${repoDir}/.git/ log --pretty=format:%H:%s ${sinceCommitId}"
 		def logs = []

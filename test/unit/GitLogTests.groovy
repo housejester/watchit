@@ -36,19 +36,19 @@ class GitLogTests extends GroovyTestCase {
 	}
 
     void testShouldHaveCorrectLogCount(){
-		assertEquals(filesToCommit.size(), git.log(null).size())
+		assertEquals(filesToCommit.size(), git.log().size())
     }
 	void testShouldHaveSubjectInCommitLog(){
-		git.log(null).each{ assertNotNull(it.subject)}
+		git.log().each{ assertNotNull(it.subject)}
 	}
     void testShouldReturnLogsOldestToNewest(){
-		def logs = git.log(null)
+		def logs = git.log()
 		def expectedOrder = filesToCommit.collect{it.message}
 		def actualOrder = logs.collect{it.subject}
 		assertEquals( expectedOrder, actualOrder)
     }
     void testShouldReturnLogsSinceProvidedCommit(){
-		def allLogs = git.log(null)
+		def allLogs = git.log()
 		def allButFirstLogs = git.log(allLogs[0].logId)
 		assertEquals( allLogs.size()-1, allButFirstLogs.size())
     }
