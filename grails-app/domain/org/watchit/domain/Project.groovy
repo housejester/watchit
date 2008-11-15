@@ -1,6 +1,8 @@
+package org.watchit.domain
+
 import org.watchit.git.Git
 
-class Project {
+public class Project {
 	static hasMany = [logs:CommitLog]
 
 	String repoUrl

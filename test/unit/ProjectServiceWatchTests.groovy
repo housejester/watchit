@@ -1,4 +1,5 @@
 import org.watchit.git.*
+import org.watchit.domain.*
 
 class ProjectServiceWatchTests extends GroovyTestCase {
     def git

@@ -1,3 +1,5 @@
+package org.watchit.domain
+
 import org.watchit.git.Git
 
 class GitProject extends Project {

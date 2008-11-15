@@ -1,4 +1,5 @@
 import org.watchit.git.*
+import org.watchit.domain.*
 
 class WatchitController {
 	def projectService

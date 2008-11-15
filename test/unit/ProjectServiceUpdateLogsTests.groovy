@@ -1,4 +1,5 @@
 import org.watchit.git.*
+import org.watchit.domain.*
 
 class ProjectServiceUpdateLogsTests extends GroovyTestCase {
 	static TEST_ID = 202

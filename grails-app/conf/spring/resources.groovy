@@ -3,4 +3,5 @@ beans = {
     git(org.watchit.git.Git){
 		tempFileNameSource = tempFileNameSource
 	}
+	analyzerService(org.watchit.StaticAnalyzerService)
 }

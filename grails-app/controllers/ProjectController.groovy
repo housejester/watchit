@@ -1,9 +1,11 @@
+import org.watchit.domain.*
+
 class ProjectController {
 	def scaffold = Project
+	def projectService
 
-	def refreshLogCount = {
-		def project = Project.findById(params.id)
-		project.logCount = "git --git-dir=${project.repoDir}/.git/ log --pretty=format:%H".execute().text.split("\n").length
-		redirect(uri:"/project/${project.id}")
+	def updateLogs = {
+		projectService.updateLogs(params.id)
+		redirect(uri:"/project/${params.id}")
 	}
 }

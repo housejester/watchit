@@ -1,3 +1,3 @@
 class CommitLogController {
-	def scaffold = true
+	def scaffold = org.watchit.domain.CommitLog
 }

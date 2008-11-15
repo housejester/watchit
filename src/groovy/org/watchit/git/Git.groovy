@@ -1,5 +1,7 @@
 package org.watchit.git
 
+import org.watchit.domain.*
+
 class Git {
 	String repoDir
 	def tempFileNameSource
@@ -42,12 +44,19 @@ class Git {
     }
 
 	def update(){
-		//not implemented
+		def proc = "git --git-dir=${repoDir}/.git/ pull".execute()
+		proc.waitFor()
 	}
 	
-	def log(){
-		//not implemented
-		return []
+	def log(sinceCommitId){
+		if(!sinceCommitId){
+			sinceCommitId = ""
+		}
+		def proc = "git --git-dir=${repoDir}/.git/ log --pretty=format:%H ${sinceCommitId}".execute()
+		proc.waitFor()
+		def logs = []
+		proc.text.split("\n").each{ logs.add(new CommitLog(logId:it)) }
+		return logs
 	}
 	
 }

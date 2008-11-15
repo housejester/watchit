@@ -1,3 +1,5 @@
+import org.watchit.domain.*
+
 class ProjectService {
     boolean transactional = true
 
