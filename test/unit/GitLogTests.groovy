@@ -47,4 +47,9 @@ class GitLogTests extends GroovyTestCase {
 		def actualOrder = logs.collect{it.subject}
 		assertEquals( expectedOrder, actualOrder)
     }
+    void testShouldReturnLogsSinceProvidedCommit(){
+		def allLogs = git.log(null)
+		def allButFirstLogs = git.log(allLogs[0].logId)
+		assertEquals( allLogs.size()-1, allButFirstLogs.size())
+    }
 }

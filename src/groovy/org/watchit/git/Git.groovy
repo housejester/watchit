@@ -49,7 +49,9 @@ class Git {
 	}
 	
 	def log(sinceCommitId){
-		if(!sinceCommitId){
+		if(sinceCommitId){
+			sinceCommitId = "${sinceCommitId}.."
+		}else{
 			sinceCommitId = ""
 		}
 		def logCommand = "git --git-dir=${repoDir}/.git/ log --pretty=format:%H:%s ${sinceCommitId}"
