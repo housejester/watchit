@@ -11,9 +11,9 @@ class ProjectServiceUpdateLogsTests extends GroovyTestCase {
 		projectService = new ProjectService()
 		projectService.analyzerService = [ analyze : {proj->}]
 
-		Project.metaClass.static.findById = { id -> idUsed = id; return project; }
-
 		project = new Project()
+		project.metaClass.updateLogs = {->false}
+		Project.metaClass.static.findById = { id -> idUsed = id; return project; }
 	}
 	
     void testShouldCallLookupProjectById(){
