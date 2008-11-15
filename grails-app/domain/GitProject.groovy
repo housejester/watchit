@@ -6,6 +6,10 @@ class GitProject extends Project {
 		def git = GitProject.git(repoDir)
 		git.update()
 		def logs = git.log(lastLogId)
+		logs.each{ this.addToLogs(it) }
+		if( !logs.isEmpty()){
+			lastLogId = logs[-1].logId
+		}
 		return !logs.isEmpty();
 	}
 

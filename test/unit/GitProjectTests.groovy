@@ -49,8 +49,40 @@ class GitProjectTests extends GroovyTestCase {
 	}
 	void testShouldReturnedTrueWhenNewLogsFound(){
 		def project = new GitProject(repoDir:"/tmp/foo", lastLogId:"someLogId")
+		project.metaClass.addToLogs = { l -> }
 		logsToReturn = [ new CommitLog() ]
 		
 		assertTrue(project.updateLogs() )
+	}
+	void testShouldAddSingleReturnedLogToLogsList(){
+		def project = new GitProject(repoDir:"/tmp/foo", lastLogId:"someLogId")
+		def addedLog = null
+		project.metaClass.addToLogs = { l -> addedLog = l }
+		logsToReturn = [ new CommitLog() ]
+		
+		project.updateLogs()
+		
+		assertSame(logsToReturn[0], addedLog)
+	}
+	void testShouldAddMultipleReturnedLogsToLogsListInOrderReceived(){
+		def project = new GitProject(repoDir:"/tmp/foo", lastLogId:"someLogId")
+		def addedLogs = []
+		project.metaClass.addToLogs = { l -> addedLogs.add(l) }
+		logsToReturn = [ new CommitLog(), new CommitLog(), new CommitLog() ]
+		
+		project.updateLogs()
+		
+		assertSame(logsToReturn[0], addedLogs[0])
+		assertSame(logsToReturn[1], addedLogs[1])
+		assertSame(logsToReturn[2], addedLogs[2])
+	}
+	void testShouldSetLastLogIdToIdOfLastLogReceived(){
+		def project = new GitProject(repoDir:"/tmp/foo", lastLogId:"someLogId")
+		def addedLogs = []
+		project.metaClass.addToLogs = { l -> addedLogs.add(l) }
+		logsToReturn = [ new CommitLog(logId:"1"), new CommitLog(logId:"2"), new CommitLog(logId:"3") ]
+		
+		project.updateLogs()
+		assertEquals("3", project.lastLogId)
 	}
 }
