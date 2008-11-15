@@ -7,7 +7,7 @@ class Project {
 	String repoDir
 	String lastLogId
 
-	public void updateLogs(){
+	public boolean updateLogs(){
 	}
 
 	static constraints = {

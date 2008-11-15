@@ -40,4 +40,14 @@ class Git {
 			throw new GitCloneException( proc.err.text )
 		}
     }
+
+	def update(){
+		//not implemented
+	}
+	
+	def log(){
+		//not implemented
+		return []
+	}
+	
 }

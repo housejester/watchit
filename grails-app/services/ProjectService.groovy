@@ -16,7 +16,8 @@ class ProjectService {
 	
 	def updateLogs(projectId){
 		def project = Project.findById(projectId)
-		project.updateLogs()
-		analyzerService.analyze(project)
+		if(project.updateLogs()){
+			analyzerService.analyze(project)
+		}
 	}
 }

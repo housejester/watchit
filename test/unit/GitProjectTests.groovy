@@ -5,6 +5,7 @@ class GitProjectTests extends GroovyTestCase {
 	def dirPassedToGit 
 	def updateCalled = false
 	def logCalledWith = "fake log id"
+	def logsToReturn = []
 
 	void setUp(){
 		GitProject.metaClass.static.git = {repoDir -> 
@@ -14,7 +15,7 @@ class GitProjectTests extends GroovyTestCase {
 		}
 		
 		Git.metaClass.update = {-> updateCalled = true }
-		Git.metaClass.log = {sinceLogId-> logCalledWith = sinceLogId }
+		Git.metaClass.log = {sinceLogId-> logCalledWith = sinceLogId; return logsToReturn; }
 	}
 
 	void testUpdateShouldCreateGitInstance(){
@@ -41,7 +42,15 @@ class GitProjectTests extends GroovyTestCase {
 		assertEquals("someLogId", logCalledWith )
 	}
 	
-	void testShouldAddReturnedLogsToLogsList(){
+	void testShouldReturnedFalseWhenNoNewLogsFound(){
+		def project = new GitProject(repoDir:"/tmp/foo", lastLogId:"someLogId")
 		
+		assertFalse(project.updateLogs() )
+	}
+	void testShouldReturnedTrueWhenNewLogsFound(){
+		def project = new GitProject(repoDir:"/tmp/foo", lastLogId:"someLogId")
+		logsToReturn = [ new CommitLog() ]
+		
+		assertTrue(project.updateLogs() )
 	}
 }

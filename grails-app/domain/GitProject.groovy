@@ -2,10 +2,11 @@ import org.watchit.git.Git
 
 class GitProject extends Project {
 	
-	public void updateLogs(){
+	public boolean updateLogs(){
 		def git = GitProject.git(repoDir)
 		git.update()
-		git.log(lastLogId)
+		def logs = git.log(lastLogId)
+		return !logs.isEmpty();
 	}
 
 	public static Git git(repoDir){

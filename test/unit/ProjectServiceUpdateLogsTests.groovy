@@ -21,7 +21,7 @@ class ProjectServiceUpdateLogsTests extends GroovyTestCase {
 		assertEquals( TEST_ID, idUsed)
     }
 
-    void testShouldCallUpdateOnReturnedProject(){
+    void testShouldCallUpdateLogsOnReturnedProject(){
 		def updateCalled = false;
 		project.metaClass.updateLogs = {->updateCalled = true}
 
@@ -29,13 +29,21 @@ class ProjectServiceUpdateLogsTests extends GroovyTestCase {
 		assertTrue( updateCalled )
     }
 
-	void testShouldCallAnalyzerServiceWithReturnedProject(){
+	void testShouldCallAnalyzerServiceWithReturnedProjectWhenUpdateFoundLogs(){
 		def projectPassedToAnalyze = null
 		
+		project.metaClass.updateLogs = {-> true }
 		projectService.analyzerService = [ analyze : {proj->projectPassedToAnalyze=proj}]
 	
 		projectService.updateLogs(TEST_ID)
 		assertSame( project, projectPassedToAnalyze )
+	}
+
+	void testShouldNotCallAnalyzerServiceWhenUpdateFoundNoNewLogs(){
+		project.metaClass.updateLogs = {-> false}
+		projectService.analyzerService = [ analyze : {proj -> fail "Should not call analyze when no new logs found" }]
+	
+		projectService.updateLogs(TEST_ID)
 	}
 
 }
