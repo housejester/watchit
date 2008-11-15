@@ -2,6 +2,7 @@ import org.watchit.git.*
 import org.watchit.*
 
 class GitLogTests extends GroovyTestCase {
+	def testStartTime
 	def git
 	def projDir
 	def filesToCommit = [ 
@@ -11,6 +12,10 @@ class GitLogTests extends GroovyTestCase {
 	]
 	
 	void setUp(){
+		Calendar cal = Calendar.getInstance()
+		cal.set(Calendar.MILLISECOND, 0)
+		testStartTime = cal.time
+
 		projDir = (new TempFileNameSource()).nextFileName()
 		(new File(projDir)).mkdir()
 
@@ -38,8 +43,19 @@ class GitLogTests extends GroovyTestCase {
     void testShouldHaveCorrectLogCount(){
 		assertEquals(filesToCommit.size(), git.log().size())
     }
-	void testShouldHaveSubjectInCommitLog(){
-		git.log().each{ assertNotNull(it.subject)}
+    void testShouldFindAllLogsWhenNullPassed(){
+		assertEquals(filesToCommit.size(), git.log(null).size())
+    }
+	void testShouldHaveAllFiledsPopulatedInCommitLog(){
+		git.log().each{ 
+			assertNotNull(it.subject)
+			assertNotNull(it.author)
+			assertNotNull(it.commitDate)
+			assertTrue("Date looks too early: test started ${testStartTime.time}, commit said ${it.commitDate.time}", 
+				it.commitDate.after(testStartTime) || it.commitDate.equals(testStartTime))
+			assertTrue("Date looks too late: test started ${testStartTime}, commit said ${it.commitDate}", 
+				it.commitDate.before(new Date()) || it.commitDate.equals(new Date()))
+		}
 	}
     void testShouldReturnLogsOldestToNewest(){
 		def logs = git.log()
