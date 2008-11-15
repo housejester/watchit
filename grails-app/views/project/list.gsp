@@ -27,8 +27,6 @@
                         
                    	        <g:sortableColumn property="repoDir" title="Repo Dir" />
                         
-                   	        <g:sortableColumn property="logCount" title="Log Count" />
-                        
                         </tr>
                     </thead>
                     <tbody>
@@ -40,8 +38,6 @@
                             <td>${fieldValue(bean:projectInstance, field:'repoUrl')}</td>
                         
                             <td>${fieldValue(bean:projectInstance, field:'repoDir')}</td>
-                        
-                            <td>${fieldValue(bean:projectInstance, field:'logCount')}</td>
                         
                         </tr>
                     </g:each>

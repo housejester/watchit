@@ -42,16 +42,6 @@
                             <td valign="top" class="value">${fieldValue(bean:projectInstance, field:'repoDir')}</td>
                             
                         </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Log Count:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:projectInstance, field:'logCount')} 
-								<g:link action="refreshLogCount" params="[id:projectInstance.id]">Refresh</g:link>
-							</td>
-                            
-                        </tr>
-                    
                     </tbody>
                 </table>
             </div>

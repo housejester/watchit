@@ -44,15 +44,6 @@
                                 </td>
                             </tr> 
                         
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="logCount">Log Count:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:projectInstance,field:'logCount','errors')}">
-                                    <input type="text" id="logCount" name="logCount" value="${fieldValue(bean:projectInstance,field:'logCount')}" />
-                                </td>
-                            </tr> 
-                        
                         </tbody>
                     </table>
                 </div>

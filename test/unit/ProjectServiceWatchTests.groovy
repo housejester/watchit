@@ -1,6 +1,6 @@
 import org.watchit.git.*
 
-class ProjectServiceTests extends GroovyTestCase {
+class ProjectServiceWatchTests extends GroovyTestCase {
     def git
     def cloneUrl 
 	def repoUrlForFind
@@ -23,7 +23,7 @@ class ProjectServiceTests extends GroovyTestCase {
 		GitProject.metaClass.save = {-> delegate.id=idForNewProject}
     }
 
-    void testWatchShouldAttemptToCloneWhenGivenGitUrl(){
+    void testShouldAttemptToCloneWhenGivenGitUrl(){
 		idForNewProject = 303
 		Project proj = projectService.watch("git://foo")
 		assertEquals( "git://foo", cloneUrl )

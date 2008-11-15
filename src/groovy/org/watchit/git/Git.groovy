@@ -1,7 +1,14 @@
 package org.watchit.git
 
 class Git {
+	String repoDir
 	def tempFileNameSource
+
+	public Git(){
+	}
+	public Git(String repoDir){
+		this.repoDir = repoDir
+	}
 	
     def exists() {
 		try{
