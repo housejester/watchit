@@ -3,19 +3,14 @@ import org.watchit.domain.*
 
 class GitProjectTests extends GroovyTestCase {
 	def git
-	def dirPassedToGit 
 	def updateCalled = false
 	def logCalledWith = "fake log id"
 	def logsToReturn = []
+	def delegateGitInstance
 
 	void setUp(){
-		GitProject.metaClass.getScm = {repoDir -> 
-			dirPassedToGit = repoDir 
-			git = new Git(repoDir)
-			return git
-		}
 		def meta = new ExpandoMetaClass(Git, true)
-		meta.update = {-> updateCalled = true }
+		meta.update = {-> updateCalled = true; delegateGitInstance = delegate }
 		meta.log = {sinceLogId-> logCalledWith = sinceLogId; return logsToReturn; }
 		meta.initialize()
 	}
@@ -27,18 +22,10 @@ class GitProjectTests extends GroovyTestCase {
 	}
 
 	void testUpdateShouldCreateGitInstance(){
-/*		Can't figure out how to test this.  Dammit.
-		
-		Project.metaClass.getScm = {repoDir -> 
-			dirPassedToGit = repoDir 
-			git = new Git(repoDir)
-			return git
-		}
-
+		//this was WAY harder to test than it should have been.
 		def project = new GitProject(repoDir:"/tmp/foo")
 		project.updateLogs()
-		assertEquals("/tmp/foo", dirPassedToGit)
-*/
+		assertEquals("/tmp/foo", delegateGitInstance.repoDir)
 	}
 
 	void testUpdateShouldCallUpdateOnGitInstance(){
