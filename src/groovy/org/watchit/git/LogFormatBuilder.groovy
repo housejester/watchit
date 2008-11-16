@@ -30,7 +30,7 @@ class LogFormatBuilder {
 		return this;
 	}
 	def parse(logOutput, callback){
-		logOutput.trim().split(LOG_START).reverse().each { log -> 
+		logOutput.trim().split(LOG_START).each { log -> 
 			if( log ){
 				callback(log.split(LOG_DELIM, numParts+1))
 			}

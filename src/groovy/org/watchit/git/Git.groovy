@@ -55,7 +55,7 @@ class Git {
 			sinceCommitId = ""
 		}
 		def logFormat = logFormat.addFullHash().addCommitterName().addCommitTime().addSubject().addBody()
-		def logCommand = "git --git-dir=${repoDir}/.git/ log --pretty=format:${logFormat} ${sinceCommitId}"
+		def logCommand = "git --git-dir=${repoDir}/.git/ log --reverse --pretty=format:${logFormat} ${sinceCommitId}"
 		def logs = []
 		logFormat.parse( logCommand.execute().text, { parts ->
 			logs.add(new CommitLog(
