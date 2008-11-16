@@ -23,6 +23,11 @@ class ProjectServiceWatchTests extends GroovyTestCase {
 		idForNewProject = 101
 		GitProject.metaClass.save = {-> delegate.id=idForNewProject}
     }
+	void tearDown(){
+		def remove = GroovySystem.metaClassRegistry.&removeMetaClass
+		remove Project
+		remove GitProject
+	}
 
     void testShouldAttemptToCloneWhenGivenGitUrl(){
 		idForNewProject = 303

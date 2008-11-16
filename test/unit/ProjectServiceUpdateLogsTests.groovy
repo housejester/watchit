@@ -16,6 +16,11 @@ class ProjectServiceUpdateLogsTests extends GroovyTestCase {
 		project.metaClass.updateLogs = {->false}
 		Project.metaClass.static.findById = { id -> idUsed = id; return project; }
 	}
+	void tearDown(){
+		def remove = GroovySystem.metaClassRegistry.&removeMetaClass
+		remove Project
+		remove GitProject
+	}
 	
     void testShouldCallLookupProjectById(){
 		projectService.updateLogs(TEST_ID)

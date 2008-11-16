@@ -7,7 +7,7 @@ class CommitLog {
 	String author
 	String message
 	Date commitDate
-	
+	def someMethod = {->}
 	static constraints = {
 		logId()
 		subject(nullable:true)

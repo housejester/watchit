@@ -16,6 +16,10 @@ class StaticAnalyzerServiceTests extends GroovyTestCase {
 		ProjectAnalyzerBookMark.metaClass.static.findByProjectAndAnalyzerKey = { proj, key -> bookMarksToReturn[key] }
 		ProjectAnalyzerBookMark.metaClass.save = { -> }
 	}
+	void tearDown(){
+		def remove = GroovySystem.metaClassRegistry.&removeMetaClass
+		remove ProjectAnalyzerBookMark
+	}
 
 	void testShouldPassAllLogsToNewAnalyzers(){
 		def logsAnalyzed = []

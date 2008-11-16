@@ -68,5 +68,5 @@ class Git {
 		}
 		return logs
 	}
-	
+	def someMethod = {->}
 }

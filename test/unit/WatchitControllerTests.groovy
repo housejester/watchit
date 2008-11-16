@@ -18,6 +18,11 @@ class WatchitControllerTests extends GroovyTestCase {
 		controller = new WatchitController()
 		controller.projectService = new ProjectService()
     }
+	void tearDown(){
+		def remove = GroovySystem.metaClassRegistry.&removeMetaClass
+		remove ProjectService
+		remove WatchitController
+	}
 
     void testWatchActionShouldCallToProjectService(){
 		def watchRepoUrl = null

@@ -14,20 +14,28 @@ class GitProjectTests extends GroovyTestCase {
 			git = new Git(repoDir)
 			return git
 		}
-		
-		Git.metaClass.update = {-> updateCalled = true }
-		Git.metaClass.log = {sinceLogId-> logCalledWith = sinceLogId; return logsToReturn; }
+		def meta = new ExpandoMetaClass(Git, true)
+		meta.update = {-> updateCalled = true }
+		meta.log = {sinceLogId-> logCalledWith = sinceLogId; return logsToReturn; }
+		meta.initialize()
+	}
+	void tearDown(){
+		def remove = GroovySystem.metaClassRegistry.&removeMetaClass
+		remove Git
+		remove Project
+		remove GitProject
 	}
 
 	void testUpdateShouldCreateGitInstance(){
 /*		Can't figure out how to test this.  Dammit.
 		
-		def project = new GitProject(repoDir:"/tmp/foo")
-		project.metaClass.getScm = {repoDir -> 
+		Project.metaClass.getScm = {repoDir -> 
 			dirPassedToGit = repoDir 
 			git = new Git(repoDir)
 			return git
 		}
+
+		def project = new GitProject(repoDir:"/tmp/foo")
 		project.updateLogs()
 		assertEquals("/tmp/foo", dirPassedToGit)
 */
