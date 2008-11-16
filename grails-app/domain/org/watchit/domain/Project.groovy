@@ -23,6 +23,21 @@ class Project {
 	public Git getScm(repoDir){
 		return null;
 	}
+	def logsAfterCommitId = { commitId -> 
+		if( !commitId){
+			return logs
+		}
+		//brute force...want to issue query here
+		def recentLogs = []
+		for(int i = logs.size()-1; i>=0; i--){
+			println "${logs[i].logId} == ${commitId}? ${logs[i].logId == commitId}"
+			if( logs[i].logId == commitId){
+				return recentLogs.reverse()
+			}
+			recentLogs.add(logs[i])
+		}
+		return logs
+	}
 
 	static constraints = {
 		repoUrl()
