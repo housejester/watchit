@@ -3,7 +3,6 @@ package org.watchit.git
 import org.watchit.domain.*
 
 class Git {
-	static final String LOG_DELIM = ";;;"
 	String repoDir
 	def tempFileNameSource
 
@@ -55,17 +54,21 @@ class Git {
 		}else{
 			sinceCommitId = ""
 		}
-		def logCommand = "git --git-dir=${repoDir}/.git/ log --pretty=format:%H${LOG_DELIM}%cn${LOG_DELIM}%ct${LOG_DELIM}%s ${sinceCommitId}"
+		def logFormat = logFormat.addFullHash().addCommitterName().addCommitTime().addSubject()
+		def logCommand = "git --git-dir=${repoDir}/.git/ log --pretty=format:${logFormat} ${sinceCommitId}"
 		def logs = []
-		logCommand.execute().text.split("\n").reverse().each{ 
-			def parts = it.split(LOG_DELIM)
+		logFormat.parse( logCommand.execute().text, { parts ->
 			logs.add(new CommitLog(
 				logId:parts[0], 
 				author:parts[1], 
 				commitDate:new Date(Long.parseLong(parts[2]) * 1000), 
 				subject:parts[3]
 			)) 
-		}
+		})
 		return logs
+	}
+	
+	def getLogFormat(){
+		return new LogFormatBuilder()
 	}
 }
