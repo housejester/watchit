@@ -4,6 +4,7 @@ class LogFormatBuilder {
 	static String LOG_DELIM = ":LOG_DELIM:"
 
 	StringBuilder format
+	def numParts = 0
 
 	public LogFormatBuilder(){
 		format = new StringBuilder(LOG_START)
@@ -20,14 +21,18 @@ class LogFormatBuilder {
 	def addSubject(){
 		return add("s")
 	}
+	def addBody(){
+		return add("b")
+	}
 	def add(text){
 		format << "%" << text << LOG_DELIM
+		++numParts
 		return this;
 	}
 	def parse(logOutput, callback){
-		logOutput.split(LOG_START).reverse().each { log -> 
+		logOutput.trim().split(LOG_START).reverse().each { log -> 
 			if( log ){
-				callback(log.split(LOG_DELIM))
+				callback(log.split(LOG_DELIM, numParts+1))
 			}
 		}
 	}

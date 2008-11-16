@@ -5,13 +5,14 @@ class GitLogTests extends GroovyTestCase {
 	def testStartTime
 	def git
 	def projDir
-	def filesToCommit = [ 
-		[name:"file1", message:"added file1"],
-		[name:"file2", message:"added file2"],
-		[name:"file3", message:"added file3"],
-	]
+	def filesToCommit
 	
 	void setUp(){
+		filesToCommit  = [ 
+			[name:"file1", message:"added file1"],
+			[name:"file2", message:"added file2"],
+			[name:"file3", message:"added file3"],
+		]
 		Calendar cal = Calendar.getInstance()
 		cal.set(Calendar.MILLISECOND, 0)
 		testStartTime = cal.time
@@ -47,14 +48,19 @@ class GitLogTests extends GroovyTestCase {
 		assertEquals(filesToCommit.size(), git.log(null).size())
     }
 	void testShouldHaveAllFiledsPopulatedInCommitLog(){
+		filesToCommit[2].message = "added file3\n\nmore body here"
 		git.log().each{ 
 			assertNotNull(it.subject)
 			assertNotNull(it.author)
 			assertNotNull(it.commitDate)
+			assertTrue(it.message.startsWith(it.subject))
 			assertTrue("Date looks too early: test started ${testStartTime.time}, commit said ${it.commitDate.time}", 
 				it.commitDate.after(testStartTime) || it.commitDate.equals(testStartTime))
 			assertTrue("Date looks too late: test started ${testStartTime}, commit said ${it.commitDate}", 
 				it.commitDate.before(new Date()) || it.commitDate.equals(new Date()))
+			if(it.logId == "file3"){
+				assertEquals("added file 3\n\nmore body here", it.message)
+			}
 		}
 	}
     void testShouldReturnLogsOldestToNewest(){

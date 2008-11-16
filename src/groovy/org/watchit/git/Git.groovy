@@ -54,7 +54,7 @@ class Git {
 		}else{
 			sinceCommitId = ""
 		}
-		def logFormat = logFormat.addFullHash().addCommitterName().addCommitTime().addSubject()
+		def logFormat = logFormat.addFullHash().addCommitterName().addCommitTime().addSubject().addBody()
 		def logCommand = "git --git-dir=${repoDir}/.git/ log --pretty=format:${logFormat} ${sinceCommitId}"
 		def logs = []
 		logFormat.parse( logCommand.execute().text, { parts ->
@@ -62,7 +62,8 @@ class Git {
 				logId:parts[0], 
 				author:parts[1], 
 				commitDate:new Date(Long.parseLong(parts[2]) * 1000), 
-				subject:parts[3]
+				subject:parts[3],
+				message:"${parts[3]}\n\n${parts[4]}"
 			)) 
 		})
 		return logs
