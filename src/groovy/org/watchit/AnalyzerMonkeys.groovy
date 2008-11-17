@@ -4,6 +4,6 @@ class AnalyzerMonkeys extends StaticAnalyzerService{
 	public AnalyzerMonkeys(){
 	}
 	public void loadMonkeys(){
-		addLogAnalyzer("logDetail", new LogDetailAnalyzer())
+		//addLogAnalyzer("logDetail", new LogDetailAnalyzer())
 	}
 }
