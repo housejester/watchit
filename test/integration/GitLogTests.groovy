@@ -54,6 +54,12 @@ class GitLogTests extends GroovyTestCase {
 			assertNotNull(it.author)
 			assertNotNull(it.commitDate)
 			assertTrue(it.message.startsWith(it.subject))
+
+			assertFalse(it.whatChanged.isEmpty())
+			assertEquals(1, it.whatChanged.size())
+			assertTrue((filesToCommit*.name).containsAll(it.whatChanged*.filePath))
+			assertTrue(["A"].containsAll(it.whatChanged*.status))
+
 			assertTrue("Date looks too early: test started ${testStartTime.time}, commit said ${it.commitDate.time}", 
 				it.commitDate.after(testStartTime) || it.commitDate.equals(testStartTime))
 			assertTrue("Date looks too late: test started ${testStartTime}, commit said ${it.commitDate}", 
