@@ -2,6 +2,7 @@ package org.watchit.domain
 
 class CommitLog {
 	static hasMany = [whatChanged:FileStatus]
+	static belongsTo = Project
 
 	Project project
 	String logId

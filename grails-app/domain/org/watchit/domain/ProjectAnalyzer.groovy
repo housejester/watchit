@@ -1,6 +1,7 @@
 package org.watchit.domain
 
 class ProjectAnalyzer {
+	static belongsTo = [Project, CommitLog]
 	String name
 	Project project
 	CommitLog commitLog
