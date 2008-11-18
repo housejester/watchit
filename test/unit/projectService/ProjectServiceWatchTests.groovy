@@ -16,7 +16,7 @@ class ProjectServiceWatchTests extends GroovyTestCase {
         cloneUrl = null
 		
 		projectService = new ProjectService()
-		projectService.git = git;
+		projectService.scm = git;
 		
 		projectToReturn = null
 		Project.metaClass.static.findByRepoUrl = { url -> repoUrlForFind = url; return projectToReturn;}

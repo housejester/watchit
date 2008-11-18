@@ -3,7 +3,7 @@ import org.watchit.domain.*
 class ProjectService {
     boolean transactional = true
 
-	def git
+	def scm
 	def analyzerService
 
 	def watch(repoUrl){
@@ -11,15 +11,16 @@ class ProjectService {
 	}
 
 	def createProject(repoUrl){
-		def project = git.checkout( repoUrl ) 
+		def project = scm.checkout( repoUrl ) 
 		project.save()
 		return project
 	}
 	
 	def updateLogs(projectId){
-		def project = Project.findById(projectId)
-		if(project.updateLogs()){
-			analyzerService.analyze(project)
-		}
+		Project.findById(projectId).updateLogs()
+	}
+	
+	def analyzeLogs(projectId){
+		analyzerService.analyze(Project.findById(projectId))
 	}
 }

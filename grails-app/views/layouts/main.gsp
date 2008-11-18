@@ -11,7 +11,7 @@
             <img src="${createLinkTo(dir:'images',file:'spinner.gif')}" alt="Spinner" />
         </div>	
         <div class="logo"><img src="${createLinkTo(dir:'images',file:'grails_logo.jpg')}" alt="Grails" /></div>	
-		<div id="content">
+		<div id="content"><a href="${createLink(controller:'project')}/actions">Project Actions</a>
         <g:layoutBody />
 		</div>
     </body>	
