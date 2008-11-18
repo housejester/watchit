@@ -3,8 +3,8 @@ beans = {
     scm(org.watchit.git.Git){
 		tempFileNameSource = tempFileNameSource
 	}
-	analyzerService(org.watchit.AnalyzerMonkeys){ bean ->
-		bean.initMethod = 'loadMonkeys' 
+	analyzerFactoryMap(org.watchit.StaticAnalyzerSource){ bean ->
+		bean.factoryMethod = "getAnalyzerFactoryMap"
 	}
 }
 

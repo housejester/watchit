@@ -16,6 +16,9 @@ environments {
 			dbCreate = "create-drop" // one of 'create', 'create-drop','update'
 			url = "jdbc:hsqldb:mem:devDB"
 		}
+		hibernate {
+			show_sql = true
+		}
 	}
 	test {
 		dataSource {

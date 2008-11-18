@@ -4,7 +4,6 @@ class ProjectService {
     boolean transactional = true
 
 	def scm
-	def analyzerService
 
 	def watch(repoUrl){
 		return Project.findByRepoUrl(repoUrl) ?: createProject(repoUrl)
@@ -18,9 +17,5 @@ class ProjectService {
 	
 	def updateLogs(projectId){
 		Project.findById(projectId).updateLogs()
-	}
-	
-	def analyzeLogs(projectId){
-		analyzerService.analyze(Project.findById(projectId))
 	}
 }

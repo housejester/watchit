@@ -44,11 +44,10 @@ class Git {
     }
 
 	def update(){
-		def proc = "git --git-dir=${repoDir}/.git/ pull".execute()
-		proc.waitFor()
+		"git --git-dir=${repoDir}/.git/ pull".execute().waitFor()
 	}
 	
-	def log(sinceCommitId=""){
+	def log(sinceCommitId){
 		if(sinceCommitId){
 			sinceCommitId = "${sinceCommitId}.."
 		}else{
