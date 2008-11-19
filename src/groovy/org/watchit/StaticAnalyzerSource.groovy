@@ -6,8 +6,8 @@ import org.watchit.analyzers.*
 class StaticAnalyzerSource{
 	public static Map getAnalyzerFactoryMap(){
 		return [
-			"Test Analyzer" : { new ProjectAnalyzer() }, 
-			"File Count" : { new FileCounter() }
+			"File Count" : { new FileCounter() },
+			"Groovy File Count" : { new FileCounter("\\.groovy\$") }
 		];
 	}
 }
